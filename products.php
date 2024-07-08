@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
 
     <!-- Data Table -->
     <link rel="stylesheet" href="http://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
@@ -32,7 +32,7 @@
 <body>
     <?php include 'nav-menu.php'; ?>
 
-    <div class="fs-2 text-center mt-2 fw-bold">All Products</div>
+    <div class="fs-2 text-center mt-2 fw-bold">Product</div>
 
     <div class="container-fluid">
         <div class="card-body text-end">
@@ -42,7 +42,7 @@
 
     <div class="container-fluid mt-2">
         <table id="myTable" class="table table-bordered table-hover">
-            <thead style="background-color: #2E2D2D; color: #ffffff;">
+            <thead style="background-color: #2E4053; color: #ffffff;">
                 <th class="fs-6 text-center">No</th>
                 <th class="fs-6 text-start">Product Name</th>
                 <th class="fs-6 text-start">Brand</th>
@@ -62,7 +62,7 @@
                     if ($result_num > 0){
                         $index = 1; 
                         foreach($result as $rows){
-                           
+                            $product_id = $rows['product_id'];
                             $product_name = $rows['product_name'];
                             $product_desc = $rows['product_desc'];
                             $product_active = $rows['product_active'];
@@ -98,7 +98,7 @@
                                     <a class="btn btn-outline-primary btn-sm" href="product_edit.php?edit_id=<?= $product_id ?>">
                                         <i class="bi bi-pen"></i> Edit
                                     </a>
-                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="product_delete.php?delete_id=<?= $product_id ?>">
+                                    <a class="btn btn-outline-danger btn-sm" href="product_delete.php?delete_id=<?= $product_id ?>">
                                         Delete
                                     </a>
 

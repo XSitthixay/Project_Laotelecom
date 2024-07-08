@@ -70,7 +70,7 @@ if(isset($_POST['c_save'])){
                                 <button type="submit" class="btn btn-primary form-control" name="c_save">Save</button>
                             </div>
                             <div class="col">
-                                <a href="brand.php" class="btn btn-danger form-control">Cancel</a>
+                                <a href="Category.php" class="btn btn-danger form-control">Cancel</a>
                             </div>
                         </div>
                     </div>

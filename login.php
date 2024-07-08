@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 include 'connect_db.php';
 
@@ -14,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+=======
+>>>>>>> 6c20be354e622da167c762960f1ecfdb4bc0b1d1
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="card-body p-5 text-center">
 
             <div class="mb-md-5 mt-md-4 pb-5">
+
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your email and password!</p>
