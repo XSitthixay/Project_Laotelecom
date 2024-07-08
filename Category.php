@@ -30,52 +30,41 @@
                 <th class="fs-6 text-start">Category Name</th>
                 <th class="fs-6 text-center">Status</th>
                 <th class="fs-6 text-center">Action</th>
-
-                
             </thead>
-
-            
+            <tbody>
                 <?php
                     $query = "SELECT * FROM tb_category ORDER BY category_id";
                     $result = mysqli_query($conn, $query);
                     $result_num = mysqli_num_rows($result);
                     if ($result_num > 0){
+                        $index = 1; // Initialize index counter
                         foreach($result as $rows){
-                            $category_id = $rows['category_id'];
                             $category_name = $rows['category_name'];
-                        
                             $category_active = $rows['category_active'];
-                            
                             ?>
                             <tr>
-                                <td class="text-center"><?= $category_id ?></td>
+                                <td class="text-center"><?= $index ?></td>
                                 <td class="text-start"><?= $category_name ?></td>
-                                
                                 <td class="text-center"><?= $category_active ?></td>
-                            
-                               
-                            
                                 <td class="text-center">
-                                <a class="btn btn-outline-primary btn-sm" href="category_edit.php?edit_id=<?= $category_id ?>">
-                                    <i class="bi bi-pen"></i> Edit
+                                    <a class="btn btn-outline-primary btn-sm" href="category_edit.php?edit_id=<?= $rows['category_id'] ?>">
+                                        <i class="bi bi-pen"></i> Edit
                                     </a>
-                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="category_delete.php?delete_id=<?= $category_id ?>">
-                                    <i class="bi bi-pen"></i> Delete
-                                 </td>
-                                
-
+                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="category_delete.php?delete_id=<?= $rows['category_id'] ?>">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </td>
                             </tr>
-
-                    <?php
+                            <?php
+                            $index++; // Increment index counter
                         }
-
-                    }else {
-                        $sms = "ບໍ່ມີຂໍ້ມູນບັນທຶກ";
+                    } else {
+                        $sms = "No records found";
                         echo '<tr>
-                        <td colspan="9" align="center>"'.$sms.'</td>
+                        <td colspan="4" class="text-center">'.$sms.'</td>
                         </tr>'; 
                     }
-                    ?>
+                ?>
             </tbody>
         </table>
     </div>

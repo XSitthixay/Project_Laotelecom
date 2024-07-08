@@ -15,6 +15,11 @@
                     <a class="nav-link me-2" href="order.php">
                         <i class="bi bi-person-add me-1"></i>Order
                     </a>
+                    ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i>Order Item</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Supplier
+                    </a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link me-2" href="products.php">

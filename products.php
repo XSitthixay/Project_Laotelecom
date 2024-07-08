@@ -60,8 +60,9 @@
                     $result = mysqli_query($conn, $query);
                     $result_num = mysqli_num_rows($result);
                     if ($result_num > 0){
+                        $index = 1; 
                         foreach($result as $rows){
-                            $product_id = $rows['product_id'];
+                           
                             $product_name = $rows['product_name'];
                             $product_desc = $rows['product_desc'];
                             $product_active = $rows['product_active'];
@@ -72,7 +73,7 @@
                             $product_total_stock = $rows['total_stock'];
                 ?>
                             <tr>
-                                <td class="text-center"><?= $product_id ?></td>
+                                <td class="text-center"><?= $index ?></td>
                                 <td class="text-start"><?= $product_name ?></td>
                                 <td class="text-start"><?= $product_brand ?></td>
                                 <td class="text-center"><?= $product_category ?></td>
@@ -104,6 +105,7 @@
                                 </td>
                             </tr>
                 <?php
+                $index++;
                         }
                     } else {
                         echo '<tr><td colspan="10" class="text-center">No records found</td></tr>';

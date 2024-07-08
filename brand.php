@@ -40,6 +40,7 @@
                     $result = mysqli_query($conn, $query);
                     $result_num = mysqli_num_rows($result);
                     if ($result_num > 0){
+                        $index = 1;
                         foreach($result as $rows){
                             $brand_id = $rows['brand_id'];
                             $brand_name = $rows['brand_name'];
@@ -59,11 +60,15 @@
                                 <a class="btn btn-outline-primary btn-sm" href="brand_edit.php?edit_id=<?= $brand_id ?>">
                                     <i class="bi bi-pen"></i> Edit
                                     </a>
+                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="brand_delete.php?delete_id=<?= $rows['brand_id'] ?>">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
                                  </td>
 
                             </tr>
 
                     <?php
+                     $index++;
                         }
 
                     }else {
