@@ -10,12 +10,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Bootstrap icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
     
 </head>
 <body>
     <?php include 'nav-menu.php'; ?>
-    <div class="fs-2 text-center mt-2 fw-bold">Brand list</div>
+    <div class="fs-2 text-center mt-2 fw-bold">Brand</div>
 
     <div class="container-fluid">
         <div class="card-body text-end">
@@ -25,7 +25,7 @@
 
     <div class="container-fluid mt-2">
         <table id="myTable" class="table table-bordered table-hover">
-            <thead style="background-color: #2E2D2D; color: #ffffff;">
+            <thead style="background-color: #2E4053; color: #ffffff;">
                 <th class="fs-6 text-center">No</th>
                 <th class="fs-6 text-start">Brand Name</th>
                 <th class="fs-6 text-center">Status</th>
