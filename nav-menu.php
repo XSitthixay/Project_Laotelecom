@@ -12,8 +12,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-2" href="#">
-                        <i class="bi bi-person-add me-1"></i>Order1
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Order
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="order.php"><i class="bi bi-person-circle me-2"></i>Order Item</a></li>
