@@ -47,10 +47,11 @@
                                 <td class="text-start"><?= $category_name ?></td>
                                 <td class="text-center"><?= $category_active ?></td>
                                 <td class="text-center">
+        
                                     <a class="btn btn-outline-primary btn-sm" href="category_edit.php?edit_id=<?= $rows['category_id'] ?>">
                                         <i class="bi bi-pen"></i> Edit
                                     </a>
-                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="category_delete.php?delete_id=<?= $rows['category_id'] ?>">
+                                    <a class="btn btn-outline-danger btn-sm" href="category_delete.php?delete_id=<?= $rows['category_id'] ?>">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </td>

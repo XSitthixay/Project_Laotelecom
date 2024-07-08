@@ -11,15 +11,7 @@
                         <i class="bi bi-house-fill me-1"></i>Home
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: Noto Sans Lao;">
-                        Order
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" ><i class="bi bi-houses-fill me-2"></i>Order Item</a></li>
-                        <li><a class="dropdown-item" href="#" ><i class="bi bi-people-fill me-2"></i>Supplier</a></li>
-                       </ul>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link me-2" href="products.php">
                         <i class="bi bi-person-add me-1"></i>Products

@@ -83,7 +83,7 @@ if (isset($_POST['update'])){
                             </div>
 
                             <div class="col-6">
-                                <a href="brand.php" type="button" class="btn btn-danger form-control">Cancel</a>
+                                <a href="Category.php" type="button" class="btn btn-danger form-control">Cancel</a>
                             </div>
                         </div>
                     </div>

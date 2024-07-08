@@ -98,7 +98,7 @@
                                     <a class="btn btn-outline-primary btn-sm" href="product_edit.php?edit_id=<?= $product_id ?>">
                                         <i class="bi bi-pen"></i> Edit
                                     </a>
-                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="product_delete.php?delete_id=<?= $product_id ?>">
+                                    <a class="btn btn-outline-danger btn-sm" href="product_delete.php?delete_id=<?= $product_id ?>">
                                         Delete
                                     </a>
 

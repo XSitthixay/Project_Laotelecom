@@ -15,7 +15,7 @@
 </head>
 <body>
     <?php include 'nav-menu.php'; ?>
-    <div class="fs-2 text-center mt-2 fw-bold">Brand</div>
+    <div class="fs-2 text-center mt-4 fw-bold">Brand</div>
 
     <div class="container-fluid">
         <div class="card-body text-end">
@@ -60,7 +60,7 @@
                                 <a class="btn btn-outline-primary btn-sm" href="brand_edit.php?edit_id=<?= $brand_id ?>">
                                     <i class="bi bi-pen"></i> Edit
                                     </a>
-                                    <a class="btn btn-outline-primary btn-sm" style="background-color: red; color: #ffffff;" href="brand_delete.php?delete_id=<?= $rows['brand_id'] ?>">
+                                    <a class="btn btn-outline-danger btn-sm" href="brand_delete.php?delete_id=<?= $rows['brand_id'] ?>">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                  </td>
