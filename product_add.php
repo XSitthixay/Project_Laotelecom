@@ -9,9 +9,6 @@ if(isset($_POST['p_save'])){
     $desc = mysqli_real_escape_string($conn, $_POST['p_desc']);
     $brand = mysqli_real_escape_string($conn, $_POST['p_brand']);
     $category = mysqli_real_escape_string($conn, $_POST['p_category']);
-    $quan = mysqli_real_escape_string($conn, $_POST['p_quan']); // assuming you have p_quan in your form
-    $price = mysqli_real_escape_string($conn, $_POST['p_price']); // assuming you have p_price in your form
-    $total = mysqli_real_escape_string($conn, $_POST['p_total']); // assuming you have p_total in your form
 
     // Save information
     $query = "INSERT INTO tb_product (product_name, product_desc, product_active, product_brand, product_category, quantity, unit_price, total_stock) 
