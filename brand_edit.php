@@ -11,15 +11,17 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $name = $row['brand_name'];
     $desc = $row['brand_desc'];
+    $active = $row['brand_active'];
 }
 
 // Update information
 if (isset($_POST['update'])){
     $b_name = $_POST['b_name'];
     $b_desc = $_POST['b_desc'];
+    $b_active = $_POST['b_active'];
 
     // Update query with corrected variable names
-    $query_update = "UPDATE brand SET brand_name='$b_name', brand_desc='$b_desc' WHERE brand_id='$id'";
+    $query_update = "UPDATE brand SET brand_name='$b_name', brand_desc='$b_desc', brand_active='$b_active' WHERE brand_id='$id'";
     $result_update = mysqli_query($conn, $query_update);
 
     if ($result_update) {
@@ -75,6 +77,14 @@ if (isset($_POST['update'])){
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
                             <textarea type="text" class="form-control" rows="2" style="resize: none;" name="b_desc"><?= $desc ?></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Active:</label>
+                            <select class="form-select" name="b_active">
+                                <option value="yes" <?= $active == 'yes' ? 'selected' : '' ?>>Yes</option>
+                                <option value="no" <?= $active == 'no' ? 'selected' : '' ?>>No</option>
+                            </select>
                         </div>
 
                         <div class="row mb-3 mt-5">

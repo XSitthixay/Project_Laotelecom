@@ -28,6 +28,42 @@
             $('#myTable').DataTable();
         });
     </script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Noto Sans Lao', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-custom {
+            background-color: #2E4053;
+        }
+        .card-header {
+            background-color: #2E4053;
+            color: #ffffff;
+        }
+        .btn-outline-success {
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .table thead {
+            background-color: #2E4053;
+            color: #ffffff;
+        }
+        .btn-sm {
+            margin: 0 2px;
+        }
+        .btn-primary, .btn-danger {
+            width: 100px;
+            border-radius: 10px;
+        }
+        .btn-outline-primary, .btn-outline-danger {
+            border-radius: 10px;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
     <?php include 'nav-menu.php'; ?>
@@ -44,6 +80,7 @@
         <table id="myTable" class="table table-bordered table-hover">
             <thead style="background-color: #2E4053; color: #ffffff;">
                 <th class="fs-6 text-center">No</th>
+                <th class="fs-6 text-center">Product ID</th>
                 <th class="fs-6 text-start">Product Name</th>
                 <th class="fs-6 text-start">Brand</th>
                 <th class="fs-6 text-center">Category</th>
@@ -63,6 +100,7 @@
                         $index = 1; 
                         foreach($result as $rows){
                             $product_id = $rows['product_id'];
+                            $product_pid = $rows['product_pid'];
                             $product_name = $rows['product_name'];
                             $product_desc = $rows['product_desc'];
                             $product_active = $rows['product_active'];
@@ -74,6 +112,7 @@
                 ?>
                             <tr>
                                 <td class="text-center"><?= $index ?></td>
+                                <td class="text-start"><?= $product_pid ?></td>
                                 <td class="text-start"><?= $product_name ?></td>
                                 <td class="text-start"><?= $product_brand ?></td>
                                 <td class="text-center"><?= $product_category ?></td>

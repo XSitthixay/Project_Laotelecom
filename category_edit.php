@@ -11,24 +11,27 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $name = $row['category_name'];
     $desc = $row['category_desc'];
+    $active = $row['category_active'];
 }
 
 // Update information
-if (isset($_POST['update'])){
+if (isset($_POST['update'])) {
     $c_name = $_POST['c_name'];
     $c_desc = $_POST['c_desc'];
+    $c_active = $_POST['c_active'];
 
     // Update query with corrected variable names
-    $query_update = "UPDATE tb_category SET category_name='$c_name', category_desc='$c_desc' WHERE category_id='$id'";
+    $query_update = "UPDATE tb_category SET category_name='$c_name', category_desc='$c_desc', category_active='$c_active' WHERE category_id='$id'";
     $result_update = mysqli_query($conn, $query_update);
 
     if ($result_update) {
-        echo '<script>window.location.href="category.php"</script>';
+        echo '<script>window.location.href="Category.php"</script>';
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,10 +74,17 @@ if (isset($_POST['update'])){
                             <input type="text" class="form-control" required name="c_name" value="<?= $name ?>">
                         </div>
 
-                        
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
-                            <textarea type="text" class="form-control" rows="2" style="resize: none;" name="c_desc"><?= $desc ?></textarea>
+                            <textarea class="form-control" rows="2" style="resize: none;" name="c_desc"><?= $desc ?></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Active:</label>
+                            <select class="form-select" name="c_active">
+                                <option value="yes" <?= $active == 'yes' ? 'selected' : '' ?>>Yes</option>
+                                <option value="no" <?= $active == 'no' ? 'selected' : '' ?>>No</option>
+                            </select>
                         </div>
 
                         <div class="row mb-3 mt-5">

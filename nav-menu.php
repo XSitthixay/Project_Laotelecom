@@ -35,7 +35,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i>Information</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Close</a></li>
+                        <li><a class="dropdown-item" href="login.php"><i class="bi bi-box-arrow-right me-2"></i>Close</a></li>
                     </ul>
                 </li>
             </ul>
