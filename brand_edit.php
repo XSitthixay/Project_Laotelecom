@@ -48,13 +48,15 @@ if (isset($_POST['update'])){
 
     <style>
         body {
-            font-family: 'Noto Sans Lao';
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f8f9fa;
         }
-
         .card_style {
-            background-color: #F4F4F4;
             margin-top: 50px;
             border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff;
         }
     </style>
 </head>
