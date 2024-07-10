@@ -33,7 +33,8 @@ if(isset($_POST['b_save'])){
 
     <style>
         body {
-            font-family: 'Noto Sans Lao';
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f8f9fa;
         }
 
         .card_style {
@@ -41,6 +42,7 @@ if(isset($_POST['b_save'])){
             margin-top: 50px;
             border-radius: 10px;
             padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
 
