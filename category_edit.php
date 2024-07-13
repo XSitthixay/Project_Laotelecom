@@ -1,7 +1,7 @@
 <?php
 include 'connect_db.php';
 
-$id = $_GET['edit_id'];
+$id = $_GET['edit_cid'];
 
 // Fetch existing information with id
 $query = "SELECT * FROM tb_category WHERE category_id = '$id'";

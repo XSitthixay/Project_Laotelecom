@@ -21,6 +21,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
 
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
     
     <script>
         $(document).ready(function() {
@@ -31,8 +34,16 @@
     <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Noto Sans Lao', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Noto Sans', sans-serif; /* Changed to Noto Sans */
+            background-color: #f8f9fa; /* Added background color for clarity */
+        }
+
+        .card_style {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff; /* Added white background */
         }
         .navbar-custom {
             background-color: #2E4053;
@@ -41,7 +52,7 @@
             height: 100%;
             width: 250px;
             position: fixed;
-            top: 56px; /* Adjust this value to match the height of your navbar */
+            top: 73px; /* Adjust this value to match the height of your navbar */
             left: 0;
             background-color: #212F3C; /* Darker background */
             overflow-x: hidden;
@@ -82,11 +93,30 @@
             vertical-align: middle;
         }
         .content {
-            margin-left: 260px;
+            margin-left: 250px; /* Adjusted to match sidebar width */
             padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .table-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Enable horizontal scroll if needed */
         }
         .menu-item {
             font-size: 1.25rem; /* Increase font size */
+        }
+        /* Optional: Adjust table responsiveness */
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -112,13 +142,13 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Products</h5>
+                            <h4 class="card-title text-center">Product List</h4>
                         </div>
                         <div class="card-body">
 
-                            <div class="fs-2 text-center mt-2 fw-bold">Product List</div>
+                            <!-- <div class="fs-2 text-center mt-2 fw-bold">Product List</div> -->
                             <div class="container-fluid">
-                                <div class="card-body text-end">
+                                <div class="card-body text-center">
                                     <a href="product_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New Product</a>
                                 </div>
                             </div>
@@ -134,7 +164,7 @@
                                             <th class="fs-6 text-center">Category</th>
                                             <th class="fs-6 text-start">Description</th>
                                             <th class="fs-6 text-center">Quantity</th>
-                                            <th class="fs-6 text-center">Unit Price</th>
+                                            <th class="fs-6 text-center">Price</th>
                                             <th class="fs-6 text-center">Total Stock</th>
                                             <th class="fs-6 text-center">Status</th>
                                             <th class="fs-6 text-center">Active</th>
@@ -173,7 +203,7 @@
                                                             <?php
                                                             if ($product_active == 'yes') {
                                                                 ?>
-                                                                    <a class="btn btn-primary btn-sm" href="product_status.php?status=yes&id=<?= $product_id ?>">Instock</a>
+                                                                    <a class="btn btn-success btn-sm" href="product_status.php?status=yes&id=<?= $product_id ?>">Instock</a>
                                                                 <?php
                                                             } else {
                                                                 ?>
@@ -184,10 +214,10 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <a class="btn btn-outline-primary btn-sm" href="product_edit.php?edit_id=<?= $product_id ?>">
-                                                                <i class="bi bi-pen"></i> Edit
+                                                                <i class="bi bi-pencil"></i> Edit
                                                             </a>
-                                                            <a class="btn btn-outline-danger btn-sm" href="product_delete.php?delete_id=<?= $product_id ?>">
-                                                                Delete
+                                                            <a class="btn btn-outline-danger btn-sm" href="product_delete.php?delete_pid=<?= $product_id ?>">
+                                                                <i class="bi bi-trash"></i>Delete
                                                             </a>
                                                         </td>
                                                     </tr>

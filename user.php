@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
+    <title>User</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -115,11 +115,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title text-center">Category List</h5>
+                        <h5 class="card-title text-center">User</h5>
                     </div>
                     <div class="container-fluid">
                         <div class="card-body text-end">
-                            <a href="category_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New Category</a>
+                            <a href="user_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New User</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -128,41 +128,49 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-start">Category Name</th>
-                                        <th class="text-center">Status</th>
+                                        <th class="text-start">Username</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Active</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $query = "SELECT * FROM tb_category ORDER BY category_id";
+                                        $query = "SELECT * FROM users ORDER BY id";
                                         $result = mysqli_query($conn, $query);
                                         $result_num = mysqli_num_rows($result);
                                         if ($result_num > 0){
                                             $index = 1; // Initialize index counter
                                             foreach($result as $rows){
-                                                $category_id = $rows['category_id'];
-                                                $category_name = $rows['category_name'];
-                                                $category_active = $rows['category_active'];
+                                                $id = $rows['id'];
+                                                $email = $rows['email'];
+                                                $username = $rows['username'];
+                                                $active = $rows['active'];
                                                 ?>
                                                 <tr>
                                                     <td class="text-center"><?= $index ?></td>
-                                                    <td class="text-start"><?= $category_name ?></td>
+                                                    <td class="text-start"><?= $username ?></td>
+                                                    <td class="text-start"><?= $email ?></td>
                                                     <td class="text-center">
-                                                        <?php if ($category_active == 'yes') { ?>
-                                                            <span class="btn btn-success btn-sm">Active</span>
-                                                        <?php } else { ?>
-                                                            <span class="btn btn-danger btn-sm">Inactive</span>
-                                                        <?php } ?>
-                                                    </td>
+                                                            <?php
+                                                            if ($active == 'yes') {
+                                                                ?>
+                                                                    <a class="btn btn-success btn-sm" href="user_status.php?status=yes&id=<?= $id ?>">Active</a>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                    <a class="btn btn-danger btn-sm" href="user_status.php?status=no&id=<?= $id ?>">Inactive</a>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </td>
                                                     <td class="text-center">
-                                                        <a href="category_edit.php?edit_cid=<?= $category_id ?>" class="btn btn-outline-primary btn-sm">
-                                                            <i class="bi bi-pencil"></i> Edit
-                                                        </a>
-                                                        <a href="category_delete.php?delete_cid=<?= $category_id ?>" class="btn btn-outline-danger btn-sm">
+                                                        
+                                                        <a href="category_delete.php?delete_uid=<?= $id ?>" class="btn btn-outline-danger btn-sm">
                                                             <i class="bi bi-trash"></i> Delete
                                                         </a>
                                                     </td>
+                                                    
                                                 </tr>
                                                 <?php
                                                 $index++; // Increment index counter

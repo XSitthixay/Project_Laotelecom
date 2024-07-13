@@ -18,8 +18,16 @@
     <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Noto Sans Lao', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Noto Sans', sans-serif; /* Changed to Noto Sans */
+            background-color: #f8f9fa; /* Added background color for clarity */
+        }
+
+        .card_style {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff; /* Added white background */
         }
         .navbar-custom {
             background-color: #2E4053;
@@ -28,22 +36,29 @@
             height: 100%;
             width: 250px;
             position: fixed;
-            top: 56px; /* Adjust this value to match the height of your navbar */
+            top: 73px; /* Adjust this value to match the height of your navbar */
             left: 0;
-            background-color: #515A5A;
+            background-color: #212F3C; /* Darker background */
             overflow-x: hidden;
             padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
         }
         .sidebar a {
             padding: 15px 25px;
             text-decoration: none;
             font-size: 18px;
-            color: #17202A;
+            color: #dcdcdc; /* Lighter font color */
             display: block;
+            transition: all 0.3s ease;
         }
         .sidebar a:hover {
-            background-color: #515A5A;
+            background-color: #6c757d; /* Darker hover background */
             color: white;
+            text-decoration: none;
+        }
+        .sidebar .list-group-item {
+            background-color: transparent;
+            border: none;
         }
         .card-header {
             background-color: #2E4053;
