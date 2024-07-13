@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap Icons -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Data Table -->
     <link rel="stylesheet" href="http://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
@@ -96,28 +96,10 @@
         .menu-item {
             font-size: 1.25rem;
         }
-        .custom-bg-primary {
-            background-color: #2874A6 !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-success {
-            background-color: #148F77 !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-warning {
-            background-color: #B7950B  !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-danger {
-            background-color: #B03A2E !important; /* Dodger Blue */
-            color: white !important;
-        }
-       
     </style>
 </head>
 <body>
     <?php include 'nav-menu.php'; ?>
-    <?php include 'connect_db.php'; ?>
     <div class="sidebar">
         <div class="card-body">
             <ul class="list-group">
@@ -139,7 +121,13 @@
             $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM users")->fetch_assoc()['total'];
 
             // Fetch recent activities
-            $recentActivities = $conn->query("SELECT * FROM users ORDER BY id");
+            $recentActivities = $conn->query("SELECT * FROM (
+                SELECT 'Product added' AS activity, 'John Doe' AS user, '2024-07-09' AS date
+                UNION
+                SELECT 'Brand updated', 'Jane Smith', '2024-07-08'
+                UNION
+                SELECT 'Category deleted', 'Mike Johnson', '2024-07-07'
+                ) AS activities ORDER BY date DESC LIMIT 5");
             ?>
             <div class="row mt-4">
                 <div class="col-md-12">
@@ -150,7 +138,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-primary text-white mb-4">
+                                    <div class="card bg-primary text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Products</h5>
                                             <p class="display-4"><?php echo $totalProducts; ?></p>
@@ -158,7 +146,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-success text-white mb-4">
+                                    <div class="card bg-success text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Brands</h5>
                                             <p class="display-4"><?php echo $totalBrands; ?></p>
@@ -166,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-warning text-white mb-4">
+                                    <div class="card bg-warning text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Categories</h5>
                                             <p class="display-4"><?php echo $totalCategories; ?></p>
@@ -174,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-danger text-white mb-4">
+                                    <div class="card bg-danger text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Users</h5>
                                             <p class="display-4"><?php echo $totalUsers; ?></p>
@@ -186,31 +174,23 @@
                                 <div class="col-lg-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Recent Active</h5>
+                                            <h5>Recent Activity</h5>
                                         </div>
                                         <div class="card-body">
-                                            <table id="myTable" class="table table-bordered table-hover">
+                                            <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Username</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col" class="text-center" >Active</th>
-                                                    
+                                                        <th scope="col">Activity</th>
+                                                        <th scope="col">User</th>
+                                                        <th scope="col">Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php while($activity = $recentActivities->fetch_assoc()): ?>
                                                     <tr>
-                                                        <td><?php echo $activity['username']; ?></td>
-                                                        <td><?php echo $activity['email']; ?></td>
-                                                        <!-- <td><?php echo $activity['active']; ?></td> -->
-                                                        <td class="text-center" ><?php if ($activity['active'] == 'yes') { ?>
-                                                                <span class="btn btn-success btn-sm">Active</span>
-                                                            <?php } else { ?>
-                                                                <span class="btn btn-danger btn-sm">Inactive</span>
-                                                            <?php } ?>
-                                                         </td>
-                                                        
+                                                        <td><?php echo $activity['activity']; ?></td>
+                                                        <td><?php echo $activity['user']; ?></td>
+                                                        <td><?php echo $activity['date']; ?></td>
                                                     </tr>
                                                     <?php endwhile; ?>
                                                 </tbody>

@@ -1,7 +1,7 @@
 <?php
 include 'connect_db.php';
 
-$id = $_GET['edit_id'];
+$id = $_GET['edit_bid'];
 
 // Fetch existing information with id
 $query = "SELECT * FROM brand WHERE brand_id = '$id'";

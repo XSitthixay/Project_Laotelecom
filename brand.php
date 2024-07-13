@@ -24,7 +24,7 @@
             height: 100%;
             width: 250px;
             position: fixed;
-            top: 56px; /* Adjust this value to match the height of your navbar */
+            top: 73px; /* Adjust this value to match the height of your navbar */
             left: 0;
             background-color: #212F3C;
             overflow-x: hidden;
@@ -49,7 +49,8 @@
             border: none;
         }
         .content {
-            margin-left: 260px;
+            margin-left: 250px; /* Adjusted to match sidebar width */
+            width: calc(100% - 250px);
             padding: 20px;
         }
         .card-header {
@@ -65,6 +66,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             overflow-x: auto; /* Enable horizontal scroll if needed */
+            padding: 2rem;
         }
         .table thead {
             background-color: #2E4053;
@@ -85,6 +87,11 @@
             .table-responsive {
                 overflow-x: auto;
             }
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -103,20 +110,20 @@
         </div>
     </div>  
 
-    <div class="container mt-5 content">
+    <div class="content">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title text-center">Brand List</h5>
                     </div>
                     <div class="container-fluid">
-                                <div class="card-body text-end">
-                                    <a href="product_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New Product</a>
-                                </div>
-                            </div>
+                        <div class="card-body text-end">
+                            <a href="brand_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New Brand</a>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive table-container">
                             <table id="myTable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -143,16 +150,16 @@
                                                     <td class="text-start"><?= $brand_name ?></td>
                                                     <td class="text-center">
                                                         <?php if ($brand_active == 'yes') { ?>
-                                                            <span class="badge bg-success">Active</span>
+                                                            <span class="btn btn-success btn-sm">Active</span>
                                                         <?php } else { ?>
-                                                            <span class="badge bg-danger">Inactive</span>
+                                                            <span class="btn btn-danger btn-sm">Inactive</span>
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <a href="brand_edit.php?edit_id=<?= $brand_id ?>" class="btn btn-outline-primary btn-sm">
+                                                        <a href="brand_edit.php?edit_bid=<?= $brand_id ?>" class="btn btn-outline-primary btn-sm">
                                                             <i class="bi bi-pencil"></i> Edit
                                                         </a>
-                                                        <a href="brand_delete.php?delete_id=<?= $brand_id ?>" class="btn btn-outline-danger btn-sm">
+                                                        <a href="brand_delete.php?delete_bid=<?= $brand_id ?>" class="btn btn-outline-danger btn-sm">
                                                             <i class="bi bi-trash"></i> Delete
                                                         </a>
                                                     </td>

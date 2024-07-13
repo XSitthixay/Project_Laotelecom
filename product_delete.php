@@ -1,6 +1,6 @@
 <?php
 include "connect_db.php";
-$delete_id = $_GET['delete_id'];
+$delete_id = $_GET['delete_pid'];
 
 if (isset($_POST['cancel'])){
     echo '<script>window.location.href="products.php"</script>';
@@ -32,7 +32,15 @@ if (isset($_POST['delete'])){
 
     <style>
         body {
-            font-family: 'Noto Sans Lao';
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .card_style {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff;
         }
     </style>
 </head>

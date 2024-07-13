@@ -40,21 +40,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="mb-md-5 mt-md-4 pb-5">
 
-
-              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+              <h2 class="fw-bold mb-4 text-uppercase">Inventory System</h2>
+              <h3 class=" mb-2 text-uppercase">Login</h3>
               <p class="text-white-50 mb-5">Please enter your email and password!</p>
 
               <?php if(isset($error)) { echo '<div class="alert alert-danger">'.$error.'</div>'; } ?>
 
               <form action="index.php" method="POST">
                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg" required />
                   <label class="form-label" for="typeEmailX">Email</label>
+                  <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg" required />
+                  
                 </div>
 
-                <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg" required />
+                <div data-mdb-input-init class="form-outline form-white mb-5">
                   <label class="form-label" for="typePasswordX">Password</label>
+                  <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg" required />
+                  
                 </div>
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>

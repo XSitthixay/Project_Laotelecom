@@ -1,6 +1,6 @@
 <?php
 include "connect_db.php";
-$delete_id = $_GET['delete_id'];
+$delete_id = $_GET['delete_cid'];
 
 if (isset($_POST['cancel'])){
     echo '<script>window.location.href="Category.php"</script>';
@@ -32,7 +32,15 @@ if (isset($_POST['delete'])){
 
     <style>
         body {
-            font-family: 'Noto Sans Lao';
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .card_style {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #fff;
         }
     </style>
 </head>
@@ -45,7 +53,7 @@ if (isset($_POST['delete'])){
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete this category?
