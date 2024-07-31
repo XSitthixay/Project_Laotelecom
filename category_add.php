@@ -1,14 +1,14 @@
-<?php include 'connect_db.php'; 
+<!-- <?php include 'connect_db.php'; 
 if(isset($_POST['c_save'])){
     $name = mysqli_real_escape_string($conn, $_POST['c_name']);
     $desc = mysqli_real_escape_string($conn, $_POST['c_desc']);
     
 
     // Save information
-    $query = "INSERT INTO tb_category (category_name, category_desc, category_active) VALUES ('$name', '$desc', 'yes')";
+    $query = "INSERT INTO categories (category_name, category_desc, category_active) VALUES ('$name', '$desc')";
     $result = mysqli_query($conn, $query);
     if($result) {
-        echo '<script>window.location.href="category.php"</script>';
+        echo '<script>window.location.href="Category.php"</script>';
     } else {
         echo "Error: " . mysqli_error($conn);
     }
@@ -24,17 +24,17 @@ if(isset($_POST['c_save'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New category</title>
 
-    <!-- Bootstrap 5 -->
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap Icons -->
+  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         body {
             font-family: 'Noto Sans', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #2E4053;
         }
         .card_style {
             margin-top: 50px;
@@ -68,10 +68,11 @@ if(isset($_POST['c_save'])){
 
                         <div class="row mb-3">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary form-control" name="c_save">Save</button>
+                                <a href="Category.php" class="btn btn-danger form-control">Cancel</a>
+                                
                             </div>
                             <div class="col">
-                                <a href="Category.php" class="btn btn-danger form-control">Cancel</a>
+                                <button type="submit" class="btn btn-primary form-control" name="c_save">Save</button>
                             </div>
                         </div>
                     </div>
@@ -81,4 +82,23 @@ if(isset($_POST['c_save'])){
     </div>
 </body>
 
-</html>
+</html> -->
+<?php
+include 'connect_db.php'; // Include your database connection
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $category_name = mysqli_real_escape_string($conn, $_POST['category_name']);
+    $category_desc = mysqli_real_escape_string($conn, $_POST['category_desc']);
+    
+
+    $query = "INSERT INTO categories (category_name, category_desc) VALUES ('$category_name', '$category_desc')";
+
+    if (mysqli_query($conn, $query)) {
+        echo "<script>window.location.href='Category.php';</script>";
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+    }
+}
+
+mysqli_close($conn);
+?>
