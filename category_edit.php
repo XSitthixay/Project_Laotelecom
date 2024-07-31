@@ -4,24 +4,22 @@ include 'connect_db.php';
 $id = $_GET['edit_cid'];
 
 // Fetch existing information with id
-$query = "SELECT * FROM tb_category WHERE category_id = '$id'";
+$query = "SELECT * FROM categories WHERE category_id = '$id'";
 $result = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $name = $row['category_name'];
     $desc = $row['category_desc'];
-    $active = $row['category_active'];
 }
 
 // Update information
 if (isset($_POST['update'])) {
     $c_name = $_POST['c_name'];
     $c_desc = $_POST['c_desc'];
-    $c_active = $_POST['c_active'];
 
     // Update query with corrected variable names
-    $query_update = "UPDATE tb_category SET category_name='$c_name', category_desc='$c_desc', category_active='$c_active' WHERE category_id='$id'";
+    $query_update = "UPDATE categories SET category_name='$c_name', category_desc='$c_desc' WHERE category_id='$id'";
     $result_update = mysqli_query($conn, $query_update);
 
     if ($result_update) {
@@ -50,7 +48,7 @@ if (isset($_POST['update'])) {
     <style>
         body {
             font-family: 'Noto Sans', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #2E4053;
         }
         .card_style {
             margin-top: 50px;
@@ -81,28 +79,29 @@ if (isset($_POST['update'])) {
                             <textarea class="form-control" rows="2" style="resize: none;" name="c_desc"><?= $desc ?></textarea>
                         </div>
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label class="form-label">Active:</label>
                             <select class="form-select" name="c_active">
                                 <option value="yes" <?= $active == 'yes' ? 'selected' : '' ?>>Yes</option>
                                 <option value="no" <?= $active == 'no' ? 'selected' : '' ?>>No</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="row mb-3 mt-5">
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary form-control" name="update">Save</button>
+                                <a href="Category.php" type="button" class="btn btn-danger form-control">Cancel</a>
                             </div>
 
                             <div class="col-6">
-                                <a href="Category.php" type="button" class="btn btn-danger form-control">Cancel</a>
+                                <button type="submit" class="btn btn-primary form-control" name="update">Save</button>
+                                
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="col-4"></div>
+        </div>
     </div>
 </body>
 

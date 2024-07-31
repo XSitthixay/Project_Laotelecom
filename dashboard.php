@@ -16,130 +16,66 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap Icons -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> -->
-
     <!-- Data Table -->
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="http://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#productTable').DataTable();
+            $('#recentOrdersTable').DataTable();
         });
     </script>
 
-    <!-- Custom CSS -->
     <style>
-        body {
-            font-family: 'Noto Sans', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .card_style {
-            margin-top: 50px;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            background-color: #fff;
-        }
-        .navbar-custom {
-            background-color: #2E4053;
-        }
-        .sidebar {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 73px;
-            left: 0;
-            background-color: #212F3C;
-            overflow-x: hidden;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar a {
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #dcdcdc;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        .sidebar a:hover {
-            background-color: #6c757d;
-            color: white;
-            text-decoration: none;
-        }
-        .sidebar .list-group-item {
-            background-color: transparent;
-            border: none;
-        }
-        .card-header {
-            background-color: #2E4053;
-            color: #ffffff;
-        }
-        .btn-outline-success {
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
-        .table thead {
-            background-color: #2E4053;
-            color: #ffffff;
-        }
-        .table td, .table th {
-            vertical-align: middle;
-        }
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-        }
-        .menu-item {
-            font-size: 1.25rem;
-        }
-        .custom-bg-primary {
-            background-color: #2874A6 !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-success {
-            background-color: #148F77 !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-warning {
-            background-color: #B7950B  !important; /* Dodger Blue */
-            color: white !important;
-        }
-        .custom-bg-danger {
-            background-color: #B03A2E !important; /* Dodger Blue */
-            color: white !important;
-        }
-       
+        .custom-bg-primary { background-color: #007bff; }
+        .custom-bg-success { background-color: #28a745; }
+        .custom-bg-success2 { background-color: lawngreen; }
+        .custom-bg-warning { background-color: #ffc107; }
+        .custom-bg-warning2 { background-color: orangered; }
+        .custom-bg-danger { background-color: #dc3545; }
+        .custom-bg-danger2 { background-color: #e83e8c; }
     </style>
 </head>
 <body>
     <?php include 'nav-menu.php'; ?>
-    <?php include 'connect_db.php'; ?>
-    <div class="sidebar">
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="dashboard.php">Dashboard</a></li>
-                <li class="list-group-item"><a href="products.php">Products</a></li>
-                <li class="list-group-item"><a href="brand.php">Brand</a></li>
-                <li class="list-group-item"><a href="Category.php">Category</a></li>
-            </ul>
-        </div>
-    </div>
 
     <div class="content">
         <div class="container-fluid">
             <?php
             // Fetch total counts
-            $totalProducts = $conn->query("SELECT COUNT(*) AS total FROM tb_product")->fetch_assoc()['total'];
-            $totalBrands = $conn->query("SELECT COUNT(*) AS total FROM brand")->fetch_assoc()['total'];
-            $totalCategories = $conn->query("SELECT COUNT(*) AS total FROM tb_category")->fetch_assoc()['total'];
-            $totalUsers = $conn->query("SELECT COUNT(*) AS total FROM users")->fetch_assoc()['total'];
+            $totalBrands = $conn->query("SELECT COUNT(*) AS total FROM brands")->fetch_assoc()['total'];
+            $totalCategories = $conn->query("SELECT COUNT(*) AS total FROM categories")->fetch_assoc()['total'];
+            $totalAdmin = $conn->query("SELECT COUNT(*) AS total FROM admins")->fetch_assoc()['total'];
+            $totalSaler = $conn->query("SELECT COUNT(*) AS total FROM saler")->fetch_assoc()['total'];
+            $totalAcc = $conn->query("SELECT COUNT(*) AS total FROM accountant")->fetch_assoc()['total'];
+            $totalOrders = $conn->query("SELECT COUNT(*) AS total FROM orders")->fetch_assoc()['total'];
 
-            // Fetch recent activities
-            $recentActivities = $conn->query("SELECT * FROM users ORDER BY id");
+            // Fetch total products and adjust based on orders
+            $totalProductsQuery = "
+                SELECT 
+                    p.product_id, 
+                    p.product_name, 
+                    p.stock_quantity, 
+                    COALESCE(SUM(od.quantity), 0) AS ordered_quantity
+                FROM products p
+                LEFT JOIN order_details od ON p.product_id = od.product_id
+                GROUP BY p.product_id
+            ";
+            $productsResult = $conn->query($totalProductsQuery);
+
+            $totalProducts = 0;
+            while ($product = $productsResult->fetch_assoc()) {
+                $available_quantity = $product['stock_quantity'] - $product['ordered_quantity'];
+                if ($available_quantity > 0) {
+                    $totalProducts += $available_quantity;
+                }
+            }
+
+            // Fetch recent orders
+            $recentOrders = $conn->query("SELECT orders.order_id, orders.order_date, orders.total_amount, orders.order_status, customers.customer_name 
+                                          FROM orders 
+                                          JOIN customers ON orders.customer_id = customers.customer_id 
+                                          ORDER BY orders.order_date DESC LIMIT 5");
             ?>
             <div class="row mt-4">
                 <div class="col-md-12">
@@ -176,50 +112,81 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="card custom-bg-danger text-white mb-4">
                                         <div class="card-body">
-                                            <h5>Total Users</h5>
-                                            <p class="display-4"><?php echo $totalUsers; ?></p>
+                                            <h5>Total Orders</h5>
+                                            <p class="display-4"><?php echo $totalOrders; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-danger2 text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Admin</h5>
+                                            <p class="display-4"><?php echo $totalAdmin; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-success2 text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Saler</h5>
+                                            <p class="display-4"><?php echo $totalSaler; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-warning2 text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Accountant</h5>
+                                            <p class="display-4"><?php echo $totalAcc; ?></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
+
+                            <!-- Recent Orders Table -->
+                            <div class="row mt-4">
+                                <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Recent Active</h5>
+                                            <h5>Recent Orders</h5>
                                         </div>
                                         <div class="card-body">
-                                            <table id="myTable" class="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Username</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col" class="text-center" >Active</th>
-                                                    
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while($activity = $recentActivities->fetch_assoc()): ?>
-                                                    <tr>
-                                                        <td><?php echo $activity['username']; ?></td>
-                                                        <td><?php echo $activity['email']; ?></td>
-                                                        <!-- <td><?php echo $activity['active']; ?></td> -->
-                                                        <td class="text-center" ><?php if ($activity['active'] == 'yes') { ?>
-                                                                <span class="btn btn-success btn-sm">Active</span>
-                                                            <?php } else { ?>
-                                                                <span class="btn btn-danger btn-sm">Inactive</span>
-                                                            <?php } ?>
-                                                         </td>
-                                                        
-                                                    </tr>
-                                                    <?php endwhile; ?>
-                                                </tbody>
-                                            </table>
+                                            <div class="table-responsive">
+                                                <table id="recentOrdersTable" class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Order ID</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Order Date</th>
+                                                            <th>Total Amount</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php while ($order = $recentOrders->fetch_assoc()): ?>
+                                                            <tr>
+                                                                <td><?php echo $order['order_id']; ?></td>
+                                                                <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
+                                                                <td><?php echo date('Y-m-d', strtotime($order['order_date'])); ?></td>
+                                                                <td><?php echo number_format($order['total_amount'], 2); ?></td>
+                                                                <td>
+                                                                    <?php if ($order['order_status'] == 'Completed'): ?>
+                                                                        <span class="badge bg-success">Completed</span>
+                                                                    <?php else: ?>
+                                                                        <span class="badge bg-danger">Pending</span>
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endwhile; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- End of card-body -->
+                            
+                        </div>
                     </div>
                 </div>
             </div>

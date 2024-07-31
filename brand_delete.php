@@ -7,7 +7,7 @@ if (isset($_POST['cancel'])){
 }
 
 if (isset($_POST['delete'])){
-    $query = "DELETE FROM brand WHERE brand_id = '$delete_id'";
+    $query = "DELETE FROM brands WHERE brand_id = '$delete_id'";
     $result = mysqli_query($conn, $query);
     if($result) {
         echo '<script>window.location.href="brand.php"</script>';

@@ -13,7 +13,7 @@ if (isset($_POST['change'])){
         $new_status = 'yes';
     }
 
-    $query = "UPDATE tb_product SET product_active = '$new_status' WHERE product_id = '$id'";
+    $query = "UPDATE products SET status = '$new_status' WHERE product_id = '$id'";
     $result = mysqli_query($conn, $query);
     if($result) {
         echo '<script>window.location.href="products.php"</script>';

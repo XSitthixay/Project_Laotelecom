@@ -7,7 +7,7 @@ if (isset($_POST['cancel'])){
 }
 
 if (isset($_POST['delete'])){
-    $query = "DELETE FROM tb_category WHERE category_id = '$delete_id'";
+    $query = "DELETE FROM categories WHERE category_id = '$delete_id'";
     $result = mysqli_query($conn, $query);
     if($result) {
         echo '<script>window.location.href="Category.php"</script>';

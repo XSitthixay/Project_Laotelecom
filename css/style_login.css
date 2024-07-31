@@ -1,6 +1,6 @@
 .gradient-custom {
     /* fallback for old browsers */
-    background: #fcfffd;
+    background: #283747;
     
     /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(to right, rgba(0, 60, 255, 0.75), rgb(123, 0, 161));
