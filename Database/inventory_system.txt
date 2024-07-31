@@ -319,3 +319,4 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`category_name`) REFERENCES `categories` (`category_name`) ON DELETE SET NULL,
   ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`brand_name`) REFERENCES `brands` (`brand_name`) ON DELETE SET NULL;
 COMMIT;
+
