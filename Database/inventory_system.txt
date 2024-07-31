@@ -320,3 +320,6 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`brand_name`) REFERENCES `brands` (`brand_name`) ON DELETE SET NULL;
 COMMIT;
 
+
+
+
