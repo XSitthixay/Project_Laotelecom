@@ -132,10 +132,11 @@
                                                         <td class="text-start"><?= $contact ?></td>
                                                         <td class="text-center">
                                                             <?php if ($status == 'active') { ?>
-                                                                <a class="btn btn-success btn-sm" href="user_status.php?status=yes&id=<?= $saler_id ?>">Active</a>
+                                                                <a class="btn btn-success btn-sm" href="user_status.php?status=active&id=<?= $saler_id ?>&user_type=saler">Active</a>
                                                             <?php } else { ?>
-                                                                <a class="btn btn-danger btn-sm" href="user_status.php?status=no&id=<?= $saler_id ?>">Inactive</a>
+                                                                <a class="btn btn-danger btn-sm" href="user_status.php?status=inactive&id=<?= $saler_id ?>&user_type=saler">Inactive</a>
                                                             <?php } ?>
+
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="user_delete.php?delete_uid=<?= $saler_id ?>&user_type=saler" class="btn btn-outline-danger btn-sm">
@@ -204,10 +205,11 @@
                                                         <td class="text-start"><?= $contact ?></td>
                                                         <td class="text-center">
                                                             <?php if ($status == 'active') { ?>
-                                                                <a class="btn btn-success btn-sm" href="user_status.php?status=yes&id=<?= $accountant_id ?>">Active</a>
+                                                                <a class="btn btn-success btn-sm" href="user_status.php?status=active&id=<?= $accountant_id ?>&user_type=accountant">Active</a>
                                                             <?php } else { ?>
-                                                                <a class="btn btn-danger btn-sm" href="user_status.php?status=no&id=<?= $accountant_id ?>">Inactive</a>
+                                                                <a class="btn btn-danger btn-sm" href="user_status.php?status=inactive&id=<?= $accountant_id ?>&user_type=accountant">Inactive</a>
                                                             <?php } ?>
+
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="user_delete.php?delete_uid=<?= $accountant_id ?>&user_type=accountant" class="btn btn-outline-danger btn-sm">

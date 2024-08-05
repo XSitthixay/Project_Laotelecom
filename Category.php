@@ -11,7 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <body>
 <?php include "nav-menu.php"; ?>
@@ -21,7 +22,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addCategoryModalLabel">Add New Customer</h5>
+                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -37,7 +38,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
-                        
                     </div>
                 </form>
             </div>
@@ -56,64 +56,56 @@
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="card-body text-end">
-                                <!-- <a href="category_add.php" type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Add New Product</a> -->
                                 <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                                     <i class="bi bi-file-earmark-plus me-1"></i>Add New Category
                                 </button>
                             </div>
-                        <div class="table-responsive table-container">
-                            <table id="myTable" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-start">Category Name</th>
-                                        <th class="text-center">Description</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $query = "SELECT * FROM categories ORDER BY category_id";
-                                        $result = mysqli_query($conn, $query);
-                                        $result_num = mysqli_num_rows($result);
-                                        if ($result_num > 0){
-                                            $index = 1; // Initialize index counter
-                                            foreach($result as $rows){
-                                                $category_id = $rows['category_id'];
-                                                $category_name = $rows['category_name'];
-                                                $category_desc = $rows['category_desc'];
-                                                ?>
-                                                <tr>
-                                                    <td class="text-center"><?= $index ?></td>
-                                                    <td class="text-start"><?= $category_name ?></td>
-                                                    <td class="text-start"><?= $category_desc ?></td>
-                                                    <!-- <td class="text-center">
-                                                        <?php if ($category_active == 'yes') { ?>
-                                                            <span class="btn btn-success btn-sm">Active</span>
-                                                        <?php } else { ?>
-                                                            <span class="btn btn-danger btn-sm">Inactive</span>
-                                                        <?php } ?>
-                                                    </td> -->
-                                                    <td class="text-center">
-                                                        <a href="category_edit.php?edit_cid=<?= $category_id ?>" class="btn btn-outline-primary btn-sm">
-                                                            <i class="bi bi-pencil"></i> 
-                                                        </a>
-                                                        <a href="category_delete.php?delete_cid=<?= $category_id ?>" class="btn btn-outline-danger btn-sm">
-                                                            <i class="bi bi-trash"></i> 
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                                $index++; // Increment index counter
+                            <div class="table-responsive">
+                                <table id="categoryTable" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-start">Category Name</th>
+                                            <th class="text-center">Description</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $query = "SELECT * FROM categories ORDER BY category_id";
+                                            $result = mysqli_query($conn, $query);
+                                            if ($result) {
+                                                $index = 1; // Initialize index counter
+                                                while ($rows = mysqli_fetch_assoc($result)) {
+                                                    $category_id = $rows['category_id'];
+                                                    $category_name = $rows['category_name'];
+                                                    $category_desc = $rows['category_desc'];
+                                                    ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= $index ?></td>
+                                                        <td class="text-start"><?= htmlspecialchars($category_name) ?></td>
+                                                        <td class="text-start"><?= htmlspecialchars($category_desc) ?></td>
+                                                        <td class="text-center">
+                                                            <a href="category_edit.php?edit_cid=<?= $category_id ?>" class="btn btn-outline-primary btn-sm">
+                                                                <i class="bi bi-pencil"></i> 
+                                                            </a>
+                                                            <a href="category_delete.php?delete_cid=<?= $category_id ?>" class="btn btn-outline-danger btn-sm">
+                                                                <i class="bi bi-trash"></i> 
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    $index++; // Increment index counter
+                                                }
+                                            } else {
+                                                echo '<tr>
+                                                <td colspan="4" class="text-center">No records found</td>
+                                                </tr>'; 
                                             }
-                                        } else {
-                                            echo '<tr>
-                                            <td colspan="4" class="text-center">No records found</td>
-                                            </tr>'; 
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,5 +113,19 @@
         </div>
     </div>
 </div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#categoryTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true
+    });
+});
+</script>
 </body>
 </html>

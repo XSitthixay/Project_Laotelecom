@@ -154,10 +154,10 @@
             width: 1670px;
             margin-left: 250px;
             position: fixed;
-            overflow-y: auto;
+            overflow-x: auto;
             font-family: 'Noto Sans', sans-serif;
         }
-
+        
 
     </style>
 
@@ -176,6 +176,7 @@
             </ul>
         </li>
         <li class="list-group-item"><a href="brand.php">Brand</a></li>
+        <li class="list-group-item"><a href="supplier.php">Supplier</a></li>
         <li class="list-group-item"><a href="category.php">Category</a></li>
         <li class="list-group-item"><a href="orders.php">Order</a></li>
     </ul>
