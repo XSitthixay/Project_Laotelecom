@@ -27,13 +27,24 @@
     </script>
 
     <style>
-        .custom-bg-primary { background-color: #007bff; }
-        .custom-bg-success { background-color: #28a745; }
-        .custom-bg-success2 { background-color: lawngreen; }
-        .custom-bg-warning { background-color: #ffc107; }
-        .custom-bg-warning2 { background-color: orangered; }
-        .custom-bg-danger { background-color: #dc3545; }
-        .custom-bg-danger2 { background-color: #e83e8c; }
+        /* Custom styles for the cards */
+        .custom-bg-products { background-color: #5DADE2; }
+        .custom-bg-brands { background-color: #2ecc71; }
+        .custom-bg-categories { background-color: #f1c40f; }
+        .custom-bg-suppliers { background-color: #E74C3C; }
+        .custom-bg-orders { background-color: #2980B9; }
+        .custom-bg-admin { background-color: #1ABC9C; }
+        .custom-bg-saler { background-color: #F39C12; }
+        .custom-bg-accountant { background-color: #C0392B; }
+        .custom-bg-revenue { background-color: #5D6D7E; }
+        .custom-bg-expenses { background-color: #5D6D7E; }
+
+        .card-body {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -43,6 +54,7 @@
         <div class="container-fluid">
             <?php
             // Fetch total counts
+            $totalSuppliers = $conn->query("SELECT COUNT(*) AS total FROM suppliers")->fetch_assoc()['total'];
             $totalBrands = $conn->query("SELECT COUNT(*) AS total FROM brands")->fetch_assoc()['total'];
             $totalCategories = $conn->query("SELECT COUNT(*) AS total FROM categories")->fetch_assoc()['total'];
             $totalAdmin = $conn->query("SELECT COUNT(*) AS total FROM admins")->fetch_assoc()['total'];
@@ -56,6 +68,7 @@
                     p.product_id, 
                     p.product_name, 
                     p.stock_quantity, 
+                    p.price,
                     COALESCE(SUM(od.quantity), 0) AS ordered_quantity
                 FROM products p
                 LEFT JOIN order_details od ON p.product_id = od.product_id
@@ -64,12 +77,23 @@
             $productsResult = $conn->query($totalProductsQuery);
 
             $totalProducts = 0;
+            $totalExpenses = 0;
             while ($product = $productsResult->fetch_assoc()) {
                 $available_quantity = $product['stock_quantity'] - $product['ordered_quantity'];
                 if ($available_quantity > 0) {
                     $totalProducts += $available_quantity;
                 }
+                // Calculate total expenses based on price and ordered quantities
+                $totalExpenses += $product['price'] * $product['ordered_quantity'];
             }
+
+            // Fetch total revenue
+            $totalRevenueQuery = "
+                SELECT SUM(total_amount) AS total_revenue 
+                FROM orders 
+                WHERE order_status = 'Completed'
+            ";
+            $totalRevenue = $conn->query($totalRevenueQuery)->fetch_assoc()['total_revenue'];
 
             // Fetch recent orders
             $recentOrders = $conn->query("SELECT orders.order_id, orders.order_date, orders.total_amount, orders.order_status, customers.customer_name 
@@ -86,7 +110,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-primary text-white mb-4">
+                                    <div class="card custom-bg-products text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Products</h5>
                                             <p class="display-4"><?php echo $totalProducts; ?></p>
@@ -94,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-success text-white mb-4">
+                                    <div class="card custom-bg-brands text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Brands</h5>
                                             <p class="display-4"><?php echo $totalBrands; ?></p>
@@ -102,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-warning text-white mb-4">
+                                    <div class="card custom-bg-categories text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Categories</h5>
                                             <p class="display-4"><?php echo $totalCategories; ?></p>
@@ -110,7 +134,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-danger text-white mb-4">
+                                    <div class="card custom-bg-suppliers text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Suppliers</h5>
+                                            <p class="display-4"><?php echo $totalSuppliers; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-orders text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Orders</h5>
                                             <p class="display-4"><?php echo $totalOrders; ?></p>
@@ -118,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-danger2 text-white mb-4">
+                                    <div class="card custom-bg-admin text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Admin</h5>
                                             <p class="display-4"><?php echo $totalAdmin; ?></p>
@@ -126,7 +158,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-success2 text-white mb-4">
+                                    <div class="card custom-bg-saler text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Saler</h5>
                                             <p class="display-4"><?php echo $totalSaler; ?></p>
@@ -134,10 +166,26 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="card custom-bg-warning2 text-white mb-4">
+                                    <div class="card custom-bg-accountant text-white mb-4">
                                         <div class="card-body">
                                             <h5>Total Accountant</h5>
                                             <p class="display-4"><?php echo $totalAcc; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-revenue text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Revenue</h5>
+                                            <p class="display-4">$<?php echo number_format($totalRevenue, 2); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card custom-bg-expenses text-white mb-4">
+                                        <div class="card-body">
+                                            <h5>Total Expenses</h5>
+                                            <p class="display-4">$<?php echo number_format($totalExpenses, 2); ?></p>
                                         </div>
                                     </div>
                                 </div>

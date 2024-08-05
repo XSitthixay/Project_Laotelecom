@@ -6,12 +6,13 @@ if (isset($_POST['login'])) {
     $password = isset($_POST['password']) ? md5($_POST['password']) : '';
     $permission = $_POST['radio_permission'];
 
+    // Set up the base query based on user type
     if ($permission == 'admin') {
-        $query = "SELECT * FROM admins WHERE (admin_username = '$username_or_email' OR admin_email = '$username_or_email') AND admin_password = '$password'";
+        $query = "SELECT * FROM admins WHERE (admin_username = '$username_or_email' OR admin_email = '$username_or_email') AND admin_password = '$password' AND status = 'active'";
     } elseif ($permission == 'saler') {
-        $query = "SELECT * FROM saler WHERE email = '$username_or_email'";
-    } else {
-        $query = "SELECT * FROM accountant WHERE email = '$username_or_email'";
+        $query = "SELECT * FROM saler WHERE email = '$username_or_email' AND status = 'active'";
+    } else { // permission == 'accountant'
+        $query = "SELECT * FROM accountant WHERE email = '$username_or_email' AND status = 'active'";
     }
 
     $result = mysqli_query($conn, $query);
@@ -20,7 +21,7 @@ if (isset($_POST['login'])) {
     if ($result_num == 1) {
         $row = mysqli_fetch_assoc($result);
         if ($row['status'] == 'active') {
-            echo '<script>window.location.href="index.php"</script>';
+            echo '<script>window.location.href="dashboard.php"</script>';
         } else {
             echo '<script>alert("Your account is inactive. Please contact support."); window.location.href="login.php"</script>';
         }
@@ -29,6 +30,8 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,9 +109,9 @@ if (isset($_POST['login'])) {
                                 </div>
                             </form>
 
-                            <!-- <div class="text-center">
+                            <div class="text-center">
                                 <p class="mb-0">Not registered? <a href="register.php" class="text-white-50 fw-bold">Click here to register</a></p>
-                            </div> -->
+                            </div>
 
                         </div>
                     </div>

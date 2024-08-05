@@ -214,7 +214,7 @@ include 'connect_db.php'; // Include your database connection
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="customer_save.php" method="post">
+                <form action="customer_add.php" method="post">
                     <div class="mb-3">
                         <label for="customer_name" class="form-label">Customer Name</label>
                         <input type="text" class="form-control" id="customer_name" name="customer_name" required>
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             option.setAttribute('data-barcode', product.barcode);
                             productSelect.appendChild(option);
                         });
-                    });
+                    })
             } else {
                 productSelect.innerHTML = '<option value="">Select Product</option>';
                 barcodeInput.value = '';
